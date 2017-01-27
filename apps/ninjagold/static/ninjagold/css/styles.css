@@ -1,0 +1,21 @@
+.errors{
+	color: red;
+	display: inline-block;
+}
+.success{
+	color: green;
+	display: inline-block;
+}
+.earn {
+	color: green;
+}
+.lost {
+	color: red;
+}
+
+a {
+  display: block;
+  margin-bottom: 10px;
+	width: 300px;
+	background-color: gold;
+}

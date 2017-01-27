@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Ninja Gold</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'ninjagold/css/styles.css' %}">
+  </head>
+  <body>
+    <h1>{{ request.session.user.first_name }} {{ request.session.user.last_name }}, you are now playing NINJA GOLD!  {{ request.session.user.id }}</h1>
+    <a href="{% url 'ninjagold:save' %}">Save Game</a>
+    <a href="{% url 'ninjagold:logout' %}">Log Out without Saving</a>
+    <div class="wrapper">
+      <h2>Welcome to Ninja Gold! (Django-Style)</h2>
+      <label>You have this much gold: {{count}}</label>
+      <form action="{% url 'ninjagold:process_g' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="building" value="reset">
+        <input type="submit" value="RESET GOLD">
+      </form>
+      <div id="farm">
+        <h3>Farm</h3>
+        <p>(earns 10-20 gold)</p>
+        <form action="{% url 'ninjagold:process_g' %}" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="building" value="farm">
+          <input type="submit" value="Earn Gold!">
+        </form>
+      </div>
+      <div id="cave">
+        <h3>Cave</h3>
+        <p>(earns 5-10 gold)</p>
+        <form action="{% url 'ninjagold:process_g' %}" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="building" value="cave">
+          <input type="submit" value="Earn Gold!">
+        </form>
+      </div>
+      <div id="house">
+        <h3>House</h3>
+        <p>(earns 2-5 gold)</p>
+        <form action="{% url 'ninjagold:process_g' %}" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="building" value="house">
+          <input type="submit" value="Earn Gold!">
+        </form>
+      </div>
+      <div id="casino">
+        <h3>Casino</h3>
+        <p>(earns or loses 0-50 gold)</p>
+        <form action="{% url 'ninjagold:process_g' %}" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="building" value="casino">
+          <input type="submit" value="Earn/Lose Gold!">
+        </form>
+      </div>
+      <div id="activities">
+        <h3>Activities: </h3>
+        {% if action %}
+          <ul>
+            {% for class, activity in action %}
+              <li class={{class}}>{{activity}}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>
